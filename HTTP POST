@@ -1,0 +1,11 @@
+An HTTP POST request is a method for carrying the requested data to the web server. 
+
+Unlike the HTTP GET method, the HTTP POST request carries the requested data as a part of the message body. 
+
+Thus, it is considered more secure than HTTP GET. HTTP POST requests can also pass large amounts of data to the server. 
+
+They are ideal for communicating with an XML web service. These methods submit and retrieve data from the web server. 
+
+When a user provides information and clicks Submit, the browser submits a string to the web server that contains the user’s credentials. 
+
+This string is visible in the body of the HTTP or HTTPS POST request as select * from Users where (username = 'smith' and password = 'simpson');
