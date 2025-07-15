@@ -1,0 +1,7 @@
+Most websites provide search to enable users to find a specific product or service quickly.
+
+A separate Search field is maintained on the website in an area that is easily viewable. 
+
+As with any other input field, attackers target this field to perform SQL injection attacks. 
+
+An attacker enters specific input values in the Search field to perform an SQL injection attack.
