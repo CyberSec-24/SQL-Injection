@@ -1,0 +1,74 @@
+Blind SQL injection is identical to a normal SQL Injection except that when an attacker attempts to exploit an application, he/she sees a generic custom page instead of a useful error message. 
+
+In blind SQL injection, an attacker poses a true or false question to the database to determine whether the application is vulnerable to SQL injection.
+
+A normal SQL injection attack is often possible when the developer uses generic error messages whenever an error has occurred in the database. 
+
+Such generic messages may reveal sensitive information or give a path to the attacker to perform an SQL injection attack on the application. 
+
+However, when developers turn off the generic error message for the application, it is difficult for the attacker to perform an SQL injection attack.
+
+Nevertheless, it is not impossible to exploit such an application with an SQL injection attack. 
+
+Blind injection differs from normal SQL injection in the manner of retrieving data from the database. 
+
+Attackers use blind SQL injection either to access sensitive data or to destroy data. Attackers can steal data by asking a series of true or false questions through SQL statements. 
+
+
+Blind SQL Injection: No Error Message Returned
+When an attacker tries to perform an SQL injection with the query “certifiedhacker'; drop table Orders --”, two kinds of error messages may be returned. 
+
+A generic error message may help the attacker to perform SQL injection attacks on the application.
+
+However, if the developer turns off the generic error messages, the application will return a custom error message, which is not useful to the attacker
+
+If generic error messaging is in use, the server returns an error message with a detailed explanation of the error, with database drivers and ODBC SQL server details.
+
+This information can be used to further perform the SQL injection attack.
+
+When custom messaging is in use, the browser simply displays an error message saying that there is an error and the request was unsuccessful, without providing any details
+
+
+Blind SQL Injection: Time-based SQL Injection
+Time delay SQL injection (sometimes called time-based SQL injection) evaluates the time delay that occurs in response to true or false queries sent to the database.
+
+A waitfor statement stops the SQL server for a specific amount of time.
+
+Based on the response, an attacker will extract information such as connection time to the database as the system administrator or as another user and launch further attacks.
+
+WAIT FOR DELAY 'time' (seconds) This is just like sleep; wait for a specified time. The CPU is a safe way to make a database wait. WAITFOR DELAY '0:0:10'--
+
+
+Blind SQL Injection: Boolean Exploitation
+Boolean-based blind SQL injection (sometimes called inferential SQL Injection) is performed by asking the right questions to the application database. 
+
+Multiple valid statements evaluated as true or false are supplied in the affected parameter in the HTTP request. 
+
+By comparing the response page between both conditions, the attackers can infer if the injection was successful.
+
+If the attacker constructs and executes the right request, the database will reveal everything that the attacker wants to know, which facilitates further attacks.
+
+In this technique, the attacker uses a set of Boolean operations to extract information about database tables. 
+
+The attacker often uses this technique if it appears that the application is exploitable using a blind SQL injection attack.
+
+
+Blind SQL Injection: Heavy Query 
+In some circumstances, it is impossible to use time delay functions in SQL queries, as the database administrator may disable the use of such functions.
+
+In such cases, an attacker can use heavy queries to perform a time delay SQL injection attack without using time delay functions. 
+
+A heavy query retrieves a massive amount of data, and it will take a long time to execute on the database engine. 
+
+Attackers generate heavy queries using multiple joins on system tables because queries on system tables take more time to execute
+
+
+
+
+
+
+
+
+
+
+
