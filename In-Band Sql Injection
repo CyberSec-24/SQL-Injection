@@ -1,0 +1,89 @@
+In in-band SQL injection, attackers use the same communication channel to perform the attack and retrieve the results. 
+
+Depending on the technique used, there are various types of in-band SQL injection attacks.
+
+Error-based SQL Injection 
+An attacker intentionally inserts bad inputs into an application, causing it to return database errors. 
+
+The attacker reads the resulting database-level error messages to find an SQL injection vulnerability in the application. 
+
+Accordingly, the attacker then injects SQL queries that are specifically designed to compromise the data security of the application. 
+
+This approach is very useful to build a vulnerability-exploiting request
+
+
+System Stored Procedure
+The risk of executing a malicious SQL query in a stored procedure increases if the web application does not sanitize the user inputs used to dynamically construct SQL statements for that stored procedure. 
+
+An attacker may use malicious inputs to execute the malicious SQL statements in the stored procedure. 
+
+Attackers exploit databases’ stored procedures to perpetrate their attacks.
+For example,
+Create procedure Login @user_name varchar(20), @password varchar(20) As Declare @query varchar(250) Set @query = ‘ Select 1 from usertable Where username = ‘ + @user_name + ‘ and password = ‘ + @password exec(@query) Go
+
+
+Illegal/Logically Incorrect Query
+An attacker may gain knowledge by injecting illegal/logically incorrect requests such as injectable parameters, data types, names of tables, and so on. 
+
+In this SQL injection attack, an attacker intentionally sends an incorrect query to the database to generate an error message that may be useful for performing further attacks.
+
+This technique may help an attacker to extract the structure of the underlying database.
+
+Example:- Username: 'Bob" The resultant query will be SELECT * FROM Users WHERE UserName = 'Bob"' AND password = 
+
+
+UNION SQL Injection 
+The “UNION SELECT” statement returns the union of the intended dataset and the target dataset.
+
+In a UNION SQL injection, an attacker uses a UNION clause to append a malicious query to the requested query, as shown in the following example:
+
+For Ex:- SELECT Name, Phone, Address FROM Users WHERE Id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable
+
+
+ Tautology
+In a tautology-based SQL injection attack, an attacker uses a conditional OR clause such that the condition of the WHERE clause will always be true.
+
+Such an attack can be used to bypass user authentication.
+
+For example, SELECT * FROM users WHERE name = ‘’ OR ‘1’=‘1’; 
+
+
+End-of-Line Comment
+In this type of SQL injection, an attacker uses line comments in specific SQL injection inputs. 
+
+Comments in a line of code are often denoted by (--), and they are ignored by the query. 
+
+An attacker takes advantage of this commenting feature by writing a line of code that ends in a comment. 
+
+The database will execute the code until it reaches the commented portion, after which it will ignore the rest of the query. For example,
+
+SELECT * FROM members WHERE username = 'admin'--' AND password = 'password' 
+
+
+In-line Comments
+Attackers simplify an SQL injection attack by integrating multiple vulnerable inputs into a single query using in-line comments.
+
+This type of injections allows an attacker to bypass blacklisting, remove spaces, obfuscate, and determine database versions. 
+
+For example, INSERT INTO Users (UserName, isAdmin, Password) VALUES ('".$username."', 0, '".$password."')"
+
+After these malicious inputs are injected, the generated query gives the attacker administrator privileges.
+INSERT INTO Users (UserName, isAdmin, Password) VALUES(‘Attacker', 1, /*’, 0, ‘*/’mypwd’)
+
+
+Piggybacked Query
+In a piggybacked SQL injection attack, an attacker injects an additional malicious query into the original query. 
+
+This type of injection is generally performed on batched SQL queries. The original query remains unmodified, and the attacker’s query is piggybacked on the original query. 
+
+Owing to piggybacking, the DBMS receives multiple SQL queries. Attackers use a semicolon (;) as a query delimiter to separate the queries
+
+This type of attack is also known as a stacked queries attack. The intention of the attacker is to extract, add, modify, or delete data, execute remote commands, or perform a DoS attack
+
+For example, the original SQL query is as follows: SELECT * FROM EMP WHERE EMP.EID = 1001 AND EMP.ENAME = ’Bob’ 
+
+Now, the attacker concatenates the delimiter (;) and the malicious query to the original query as follows: 
+SELECT * FROM EMP WHERE EMP.EID = 1001 AND EMP.ENAME = ’Bob’; DROP TABLE DEPT;
+
+
+
