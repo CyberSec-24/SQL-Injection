@@ -1,0 +1,27 @@
+In UNION SQL injection, an attacker combines a forged query with a query requested by the user using a UNION clause. 
+
+The result of the forged query is appended to the result of the original query, making it possible to obtain the values of the fields from other tables. 
+
+To execute a UNION SQL injection, the attacker first determines the number of columns in the target table. 
+
+This is done by incrementing the number in an ORDER BY clause until an error is encountered: ORDER BY 10--
+
+if the application displays an error message such as “Unknown column '10' in 'order clause”, then the attacker will assume that there are less than 10 columns in the target database table
+
+Once the attacker learns the number of columns, the next step is to determine the column data types by using a UNION SELECT query with null or known values: UNION SELECT 1,null,null—
+
+If this query is executed successfully, it indicates that the first column is of integer type. The attacker repeats this process to identify the types of the other columns
+
+Once the number and types of columns are determined, the attacker performs a UNION SQL injection
+
+For example, SELECT Name, Phone, Address FROM Users WHERE Id=$id Now, set the following id value: $id=1 UNION ALL SELECT creditCardNumber,1,1 
+FROM CreditCardTable The attacker now launches a UNION SQL injection query as follows:
+SELECT Name, Phone, Address FROM Users WHERE Id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable
+
+
+
+
+
+
+
+
