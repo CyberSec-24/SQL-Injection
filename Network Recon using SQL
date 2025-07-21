@@ -1,0 +1,41 @@
+Network reconnaissance is the process of testing any potential vulnerability in a computer network. 
+
+However, network reconnaissance is also a major type of network attack. 
+
+Network reconnaissance can be reduced to some extent but not eliminated. 
+
+Attackers use network mapping tools such as Nmap and Network Topology Mapper to determine the vulnerabilities of the network.
+
+▪ The steps for assessing network connectivity are as follows: 
+o Retrieve server name and configuration using ' and 1 in (select @@servername ) --
+' and 1 in (select srvname from sys.sysservers ) --
+
+o Use utilities such as NetBIOS, ARP, Local Open Ports, nslookup, ping, ftp, tftp, smb, and traceroute to assess networks
+
+o Test for firewalls and proxies
+
+▪To perform network reconnaissance, you can execute the following using the xp_cmdshell command:
+
+o Ipconfig/all, tracert myIP, arp –a, nbtstat –c, netstat –ano, route print
+
+
+# Finding and Bypassing Admin Panel of a Website #
+
+Attackers try to find the admin panel of a website using simple Google dorks and bypass administrator authentication using an SQL injection attack.
+
+An attacker generally uses Google dorks to find the URL of an admin panel. 
+
+For example, the attacker may try the following dorks to find the admin panel of a website: 
+▪ inurl:”adminlogin.aspx” 
+▪ inurl:”admin/index.php”
+
+Using the above dorks, an attacker may form the following URLs to access the admin login page of a website: 
+▪ http://www.certifiedhacker.com/admin.php 
+▪ http://www.certifiedhacker.com/admin/
+
+
+
+
+
+
+
