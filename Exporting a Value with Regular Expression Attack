@@ -1,0 +1,37 @@
+An attacker performs SQL injection using regular expressions on a known table to learn the values of confidential information such as passwords. 
+
+For example, if an attacker knows that a web application stores its users details in a table named UserInfo, then the attacker can perform a regular expression attack as follows to determine the passwords:
+
+In general, databases store hashed passwords generated from MD5 or SHA-1 algorithms. Hashed passwords contain only [a-f0-9] values.
+
+
+▪ Exporting a value in MySQL
+In MySQL, an attacker uses the following method to identify the first character of the password: Check if the 1st character in the password is between “a” and “f”
+
+index.php?id=2 and 1=(SELECT 1 FROM UserInfo WHERE Password REGEXP '^[a-f]' AND ID=2)
+
+If the above query returns TRUE, then check if the 1st character in the password is between “a” and “c”
+
+
+▪ Exporting a value in MSSQL
+In MSSQL, attackers use the same method as that described above to identify the first character of the password.
+
+Now, we will see how the attacker identifies the second character of the password in MSSQL using the following method:
+Check if the 2nd character in the password is between “a” and “f”
+
+default.aspx?id=2 AND 1=(SELECT 1 FROM UserInfo WHERE Password LIKE 'd[a-f]%' AND ID=2)
+
+If the above query returns FALSE, the attacker tries values between “0” and “9”. Check if the 2nd character in the password is between “0” and “9”
+
+
+
+
+
+
+
+
+
+
+
+
+
