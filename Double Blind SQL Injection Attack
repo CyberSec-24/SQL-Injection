@@ -1,0 +1,35 @@
+Double-blind SQL injection is a sophisticated type of SQL injection attack in which an attacker does not receive direct feedback from a web application to confirm whether the injection is successful. 
+
+This makes it more challenging because attackers must rely on indirect indicators or side channels to infer the success of their attempts
+
+▪ The attacker identifies an input field that is susceptible to SQL injection but does not provide direct feedback such as error messages or data from the database.
+
+▪ An attacker can construct SQL injection payloads that can manipulate a database and cause observable changes or effects within the application.
+
+▪ The attacker looks for indirect indicators of a successful injection. This could include changes in application behavior, differences in response times, or impacts on other database-dependent functionalities.
+
+▪ Techniques such as Boolean-based blind SQL injection and time-based blind SQL injections are commonly used in double-blind SQL injection attacks
+
+In a typical double-blind injection attack, the functions benchmark() and sleep() are used to process time delays.
+
+An example of double-blind SQL injection is given below.
+
+/?id=1+AND+if((ascii(lower(substring((select password from user limit 0,1),0,1))))=97,1,benchmark(2000000,md5(now()))) 
+
+▪ We conjecture that the character was correctly guessed based on the time delay of the web-server response.
+
+▪ Manipulating the value 2000000: we can achieve acceptable performance for a concrete application
+
+▪ The sleep() function represents an analog of the function benchmark(). The function sleep() is more secure in a given context because it does not require server resources.
+
+
+
+
+
+
+
+
+
+
+
+
