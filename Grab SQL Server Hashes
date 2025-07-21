@@ -1,0 +1,8 @@
+Some databases store user IDs and passwords in a syslogins table in the form of hash values. 
+
+An attacker tries to extract clear text credentials, password hashes, tokens, etc., from the database to further compromise the target network. 
+
+To extract this information, attackers need to execute a sequence of queries against the target database,
+
+
+
