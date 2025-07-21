@@ -1,0 +1,44 @@
+An attacker can also link a target SQL server’s database to the attacker’s own machine. 
+
+By doing this, the attacker can retrieve data from the target SQL server database.
+
+The attacker does this using OPENROWSET; after the DB structure is replicated, the data transfer takes place.
+
+The attacker connects to a remote machine on port 80 to transfer data
+
+
+Interacting with the Operating System
+Attackers use various DBMS queries to interact with a target OS. 
+
+There are two different ways to interact with an OS: 
+
+▪ Reading and writing system files from the disk: 
+An attacker can read arbitrary files present on the target running the DBMS and steal important documents, configurations, or binary files. 
+He/she can also obtain credentials from the target system files to launch further attacks on the system.
+
+▪ Direct command execution via remote shell:
+An attacker can abuse a Windows access token to escalate his/her privilege on the target system, perform malicious activities, and launch further attacks
+
+
+Interacting with the File System
+Attackers exploit the MySQL functionality of allowing text files to be read through the database to obtain the password files and store the results of a query in a text file
+
+▪ LOAD_FILE()
+The LOAD_FILE() function within MySQL is used to read and return the contents of a file located within the MySQL server. 
+
+For example, the following query is used by an attacker to retrieve the password file from the database:
+NULL UNION ALL SELECT LOAD_FILE('/etc/passwd')/* If successful, the injection will display the contents of the passwd file.
+
+▪ INTO OUTFILE()
+The OUTFILE() function within MySQL is often used to run a query and dump the results into a file. 
+
+For example, the following query is used by an attacker to store the results of a specific query:
+NULL UNION ALL SELECT NULL,NULL,NULL,NULL,'<?php system($_GET["command"]); ?>' INTO OUTFILE '/var/www/certifiedhacker.com/shell.php'/*
+
+If successful, it will then be possible to run system commands via the $_GET global
+
+
+
+
+
+
