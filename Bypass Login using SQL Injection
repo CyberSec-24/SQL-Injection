@@ -1,0 +1,25 @@
+Bypassing website logins is a fundamental and common malicious activity that an attacker can perform using SQL injection. 
+
+This is the easiest way to exploit any SQL injection vulnerability of the application. 
+
+An attacker can bypass the login mechanism (authentication mechanism) of the application by injecting malicious code (in the form of an SQL command) into any user’s account without entering a username and password.
+
+The attacker inserts the malicious SQL string in a website login form to bypass the login mechanism of the application. 
+
+Attackers can fully exploit SQL vulnerabilities. Programmers chain SQL commands and user-provided parameters together. 
+
+By using this feature, the attacker executes arbitrary SQL queries and commands on the backend database server through the web application
+
+You can “union” the results with a known password and the MD5 hash of a supplied password. 
+
+The web application will compare your password and the supplied MD5 hash instead of the MD5 from the database
+
+For example: Username : admin
+Password : 1234 ' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055 81dc9bdb52d04dc20036dbd8313ed055 = MD5(1234)
+
+
+
+
+
+
+
