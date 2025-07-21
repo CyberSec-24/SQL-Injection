@@ -19,9 +19,19 @@ http://www.certifiedhacker.com/page.aspx?id=1 or 1=convert(int, (select top 1 CO
 Syntax error converting the nvarchar value '[FIELD 1 VALUE]' into a column of data type int.
 
 
+Error Based SQL Injection using Stored Procedure Injection:-
 
+ Developers may write static and dynamic SQL statements inside the stored procedures to support the application’s functionality. 
 
+If the developers use dynamic SQL statements in the stored procedure, and if application users input to this dynamic SQL, then the application may be vulnerable to SQL injection attacks.
 
+Stored procedure injection attacks are possible if the application does not properly sanitize its input before processing that input in the stored procedure. 
+
+An attacker can take advantage of improper input validation to launch a stored procedure injection attack on the application
+
+Consider the following SQL server stored procedure:
+Create procedure get_report @columnamelist varchar(7900) 
+As Declare @sqlstring varchar(8000) Set @sqlstring = ‘ Select ‘ + @columnamelist + ‘ from ReportTable‘ exec(@sqlstring) Go
 
 
 
