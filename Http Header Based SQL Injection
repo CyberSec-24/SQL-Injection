@@ -1,0 +1,52 @@
+Attackers can use HTTP headers to inject SQL queries into a vulnerable server.
+
+This vulnerability is usually caused when proper sanitization is not performed on the user’s input.
+
+Attackers may exploit different HTTP header fields to inject malicious SQL queries
+
+
+▪ HTTP Header fields HTTP header fields are components of the HTTP request and response message headers.
+These fields are useful for defining the operational parameters of an HTTP transaction between the web server and the browser
+
+Some basic Request HTTP header fields are as follows: 
+GET / HTTP/1.1 
+Connection: “Connection”
+Keep-Alive: “Timeout” 
+Accept:*/*
+Host: Host" ":" host [ ":" port ] 
+Accept-Language: language [q=qvalue]
+Accept-Encoding: “encoding types”
+User-Agent: “<product><product-version> <comment>”
+Cookie: name=value
+
+
+▪ X-Forwarded-For
+X-Forwarded-For is an HTTP header field that is used by attackers to identify the IP address of the client system that initiated the connection to a web server via an HTTP proxy. 
+
+▪ User-Agent
+User-Agent is an HTTP header field that includes information related to the user agent that initiated the HTTP request.
+User-Agent : product | comment
+
+For example, an attacker may modify the User-Agent field as follows:
+GET /index.php HTTP/1.1 
+Host: [host]
+User-Agent: aaa' or 1/*
+
+▪ Referer
+Referer is an HTTP header that is vulnerable to SQL injection, as the application stores the input in the database without proper sanitization. 
+
+It is an optional HTTP header field that allows a client to specify the URI of a document or an object within the document. 
+
+This allows a web server to maintain a list of back-links to documents for logging purposes and helps in tracing malicious links
+
+For example, an attacker can modify the Referer HTTP header field with malicious input as follows:
+GET /index.php HTTP/1.1 
+Host: [host] 
+User-Agent: aaa' or 1/* 
+Referer: http://www.hackerswebsite.com
+
+
+
+
+
+
