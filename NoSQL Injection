@@ -1,0 +1,32 @@
+MongoDB uses a NoSQL database, which is vulnerable to various NoSQL injection attacks. 
+
+The web applications that use a MongoDB database may contain this vulnerability in its authentication code, which allows attackers to bypass the authentication process.
+
+It can further lead to data exfiltration and data modification. 
+
+Applications developed using PHP, JavaScript, Python, and Java allow attackers to execute commands in the database as well as in the application
+
+Attackers use MongoDB operations such as $eq (equals), $ne (not equal to), $gt (greater than), $gte (greater than or equal to), and [$regex] to create a malicious command that bypasses the authentication procedure
+
+User_name[$eq]=admin&pwd[$ne]=admin
+If this query is executed in the database, then the attacker logs in as an admin user
+
+
+JavaScript Injection in MongoDB Database
+Consider a vulnerable PHP application using a MongoDB database that allows the $where query operation. 
+
+An attacker creates a malicious JavaScript code that might display the list of users from the database and inputs it to the application.
+
+For example,
+
+the application programmer uses the following code to check for a particular user using the $where query operation:
+$myquery = array('$where' => 'this.username === \''.$username.'\''); 
+
+The above code compares the $name field with the database. Attackers use an empty string to trick the database into displaying the list of users.
+
+If the attacker uses a while(true) operation in place of $name as an input string, an infinite loop could occur, which can lead to a DoS attack.
+
+
+
+
+
