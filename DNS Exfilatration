@@ -1,0 +1,18 @@
+Attackers use DNS exfiltration to extract data, such as password hashes from a DNS request. 
+
+The DNS requests sent by the attacker can possibly pass through the database server to an arbitrary host.
+
+Even though the firewall prevents the database server from sending data directly to the Internet, it can allow the DNS requests to pass through an internal DNS server as the requests originate from the server
+
+Attackers embed the output of a malicious SQL query in a DNS request and capture the DNS response sent by the server
+
+An attacker uses the SELECT statement for acquiring the password hash by appending a domain name to the end of the statement (i.e., certifiedhacker.com).
+
+The attacker then performs a DNS lookup for a fabricated hostname and runs a packet sniffer to capture packets from the name server of the target domain and retrieves the password hash from the DNS record
+
+appserver.example.com.5678 > ns.certifiedhacker.com.53 A? 0x4a6f686e.certifiedhacker.com
+In the above statement, the string “0x4a6f686e” represents the password hash extracted by the attacker using the SELECT statement
+
+
+
+
